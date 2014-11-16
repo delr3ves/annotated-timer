@@ -1,4 +1,4 @@
-# Annotated Timer
+# Annotated Timer ![Build Status](https://api.travis-ci.org/repositories/delr3ves/annotated-timer.svg)
 
 ## Getting started
 
