@@ -7,6 +7,22 @@
     <artifactId>annotated-timer</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <name>Annotated Timer</name>
+    <description>Add behavior for metrics-annotations using Guice AOP</description>
+    <url>https://github.com/delr3ves/annotated-timer</url>
+
+    <scm>
+        <url>https://github.com/delr3ves/annotated-timer</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <properties>
         <metrics.version>3.1.0</metrics.version>
     </properties>

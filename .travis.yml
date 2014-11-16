@@ -1,0 +1,10 @@
+language: java
+
+install: echo "Now I'm meassuring in a very confortable way ;)."
+
+# don't just run the tests, also run Findbugs and friends
+script: mvn clean verify
+
+jdk:
+  - oraclejdk7
+  - oraclejdk8
