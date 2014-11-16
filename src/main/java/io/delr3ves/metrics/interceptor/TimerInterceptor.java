@@ -11,6 +11,8 @@ import java.lang.reflect.Method;
 import static com.codahale.metrics.MetricRegistry.name;
 
 /**
+ * Intercepts methods in order to measure the time they take to execute.
+ *
  * @author Sergio Arroyo - @delr3ves
  */
 public class TimerInterceptor implements MethodInterceptor {
@@ -22,9 +24,16 @@ public class TimerInterceptor implements MethodInterceptor {
         this.metricRegistry = metricRegistry;
     }
 
+    /**
+     * Intercepts the method and measure the execution time.
+     *
+     * @param methodInvocation the invocation
+     * @return the invocation result.
+     * @throws Throwable if the invocation fail
+     */
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
-        Timer timer = getTimer(methodInvocation);
+        Timer timer = getTimer(methodInvocation.getMethod());
         Timer.Context ctx = timer.time();
         try {
             return methodInvocation.proceed();
@@ -33,8 +42,14 @@ public class TimerInterceptor implements MethodInterceptor {
         }
     }
 
-    private Timer getTimer(MethodInvocation methodInvocation) {
-        String name = getNameForTimer(methodInvocation.getMethod());
+    /**
+     * Find the timer in the registry and create it if needed. Then return it.
+     *
+     * @param method contains the information to find the timer
+     * @return the timer.
+     */
+    private Timer getTimer(Method method) {
+        String name = getNameForTimer(method);
         Timer timer = metricRegistry.getTimers().get(name);
         if (timer == null) {
             timer = metricRegistry.timer(name);
@@ -42,6 +57,11 @@ public class TimerInterceptor implements MethodInterceptor {
         return timer;
     }
 
+    /**
+     * Build the name of the metric based on the method and its annotations.
+     * @param method the method to be measured.
+     * @return the name of the timer.
+     */
     private String getNameForTimer(Method method) {
         Timed timed = method.getAnnotation(Timed.class);
         if (timed.absolute()) {

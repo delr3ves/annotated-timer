@@ -19,8 +19,8 @@ Then create the injector using *io.delr3ves.metrics.AnnotatedTimerGuiceModule* o
     Injector injector = Guice.createInjector(new AnnotatedTimerGuiceModule(metricRegistry, excludedClasses, excludedPackages));
 
 or 
-    public class YourCustomModule extends AbstractModule {
 
+    public class YourCustomModule extends AbstractModule {
         @Override
         protected void configure() {
             ...
